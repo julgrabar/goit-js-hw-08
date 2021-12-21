@@ -6,7 +6,7 @@ function IsStorageEmpty() {
     let dataFormObj = JSON.parse(localStorage.getItem("feedback-form-state"));
     form.email.value = dataFormObj.email;
     form.message.value = dataFormObj.message;
-    dataForm ={"email": dataFormObj.email,'message': dataFormObj.email}
+    dataForm ={"email": dataFormObj.email,"message": dataFormObj.email}
     };
 };
 
@@ -23,10 +23,13 @@ form.addEventListener('input', throttle((evt)=>{
 
 form.addEventListener('submit', onSubmit)
 function onSubmit(evt) {
-    evt.preventDefault();
+    if (form.email.value !== "" && form.message.value !== "") {
+        evt.preventDefault();
     evt.target.reset();
     localStorage.removeItem('feedback-form-state');
     console.log(dataForm);
     dataForm = {"email":"","message":""}
     return dataForm;
+    }else{
+        alert("Bсе поля должны быть заполнены!")}
 }
